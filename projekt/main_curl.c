@@ -10,6 +10,8 @@ typedef struct _Memory
     size_t size;
 } Memory;
 
+
+
 static size_t write_callback(void *data, size_t size, size_t nmemb, void *userp)
 {
     /* to jest rzeczywista liczba bajtów przekazanych przez curl */
@@ -102,6 +104,11 @@ void move(char *token) {
 }
 void explore(char *token) {
      char *url1 = "http://edi.iem.pw.edu.pl:30000/worlds/api/v1/worlds/explore/qwerty_2";
+
+    make_request(url1);
+}
+void reset(char *token) {
+     char *url1 = "http://edi.iem.pw.edu.pl:30000/worlds/api/v1/worlds/reset/qwerty_2";
 
     make_request(url1);
 }
@@ -269,6 +276,10 @@ int main(int argc, char **argv)
 	        fread(buffer,1,2048,f);
 	        fclose(f);
         supports_full_hd(buffer);}
+        if(strcmp(argv[i], "reset")==0){
+            printf("\nResetuje swiat.\n");
+        reset(test);
+        }
     }
     return 0;
 }
