@@ -1,0 +1,1 @@
+Projekt zaliczeniowy Logo Worlds Podstawy Programowania 1DM1103_20Z Kacper Chamera oraz Aleksander Wyykowski
