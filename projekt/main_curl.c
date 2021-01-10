@@ -10,7 +10,51 @@ typedef struct _Memory
     size_t size;
 } Memory;
 
+typedef struct _stanex{
+    int x1, x2, x3, y1, y2, y3;
+    char pole1, pole2, pole3;
+} stanex;
 
+typedef struct _mapa {
+    stanex;
+    char tab[20][20];
+} mapa;
+
+mapa poczatek(mapa *m){
+    for (int i = 0; i < 20; i++){
+        for (int j = 0; j < 20; j++){
+            m->tab[i][j]= 'x';
+            printf("%c ", m->tab[i][j]);
+        }
+        printf("\n");    }
+}
+
+// mapa *wypisz(mapa *m) {
+//     printf("[");
+//     for (int i = 0; i < m->r; i++) {
+//         for (int j = 0; j < m->c; j++) {
+//             printf("%5.1f ", m->tab[i][j]);
+//         }
+//         if (i < (m->r-1))
+//             printf("\n  ");
+//     }
+//     printf("]\n");
+//     return m;
+// }
+
+void zapiszmape(mapa *m) {
+    
+    FILE * fout = fopen("mapka.txt", "w");
+
+     for (int i = 0; i < 20; i++){
+        for (int j = 0; j < 20; j++){
+            m->tab[i][j]= 'x';
+            fprintf(fout, "%c ", m->tab[i][j]);
+        }
+        fprintf(fout, "\n");    }
+
+    fclose(fout);
+}
 
 static size_t write_callback(void *data, size_t size, size_t nmemb, void *userp)
 {
@@ -231,6 +275,10 @@ end:
 
 int main(int argc, char **argv)
 {
+    mapa m;
+    poczatek(&m);
+    zapiszmape(&m);
+
 	char buffer[2048];
 	
     Memory chunk;
