@@ -10,24 +10,29 @@ typedef struct _Memory
     size_t size;
 } Memory;
 
-typedef struct _stanex{
-    int x1, x2, x3, y1, y2, y3;
-    char pole1, pole2, pole3;
-} stanex;
+
 
 typedef struct _mapa {
-    stanex;
+    int x, y;
     char tab[20][20];
+    int x1, y1;
+    int x2, y2;
+    int x3, y3;
+    
+    char *pole1;
+    char *pole2;
+    char *pole3;
 } mapa;
 
-mapa poczatek(mapa *m){
-    for (int i = 0; i < 20; i++){
-        for (int j = 0; j < 20; j++){
-            m->tab[i][j]= 'x';
-            printf("%c ", m->tab[i][j]);
-        }
-        printf("\n");    }
-}
+// mapa poczatek(mapa *m){
+//     for (int i = 0; i < 20; i++){
+//         for (int j = 0; j < 20; j++){
+//             m->tab[i][j]= 'x';
+//             printf("%c ", m->tab[i][j]);
+//         }
+//         printf("\n");    
+//     }
+// }
 
 // mapa *wypisz(mapa *m) {
 //     printf("[");
@@ -42,19 +47,19 @@ mapa poczatek(mapa *m){
 //     return m;
 // }
 
-void zapiszmape(mapa *m) {
+// void zapiszmape(mapa *m) {
     
-    FILE * fout = fopen("mapka.txt", "w");
+//     FILE * fout = fopen("mapka.txt", "w");
 
-     for (int i = 0; i < 20; i++){
-        for (int j = 0; j < 20; j++){
-            m->tab[i][j]= 'x';
-            fprintf(fout, "%c ", m->tab[i][j]);
-        }
-        fprintf(fout, "\n");    }
+//      for (int i = 0; i < 20; i++){
+//         for (int j = 0; j < 20; j++){
+//             m->tab[i][j]= 'x';
+//             fprintf(fout, "%c ", m->tab[i][j]);
+//         }
+//         fprintf(fout, "\n");    }
 
-    fclose(fout);
-}
+//     fclose(fout);
+// }
 
 static size_t write_callback(void *data, size_t size, size_t nmemb, void *userp)
 {
@@ -167,13 +172,17 @@ void left(char *token) {
     make_request(url1);
 }
 
-void supports_full_hd(const char * const monitor)
+mapa *supports_full_hd(const char * const monitor)
 {
     const cJSON *resolution = NULL;
     const cJSON *payload = NULL;
     const cJSON *status = NULL;
     const cJSON *lista = NULL;
-   
+    const cJSON *x1 = NULL;
+    // const cJSON *y1 = NULL;
+    const cJSON *pole1 = NULL;
+
+    mapa *m;
     cJSON *monitor_json = cJSON_Parse(monitor);
     if (monitor_json == NULL)
     {
@@ -183,12 +192,12 @@ void supports_full_hd(const char * const monitor)
             fprintf(stderr, "Error before: %s\n", error_ptr);
         }
       
-        goto end;
+        
     }
 
     status = cJSON_GetObjectItemCaseSensitive(monitor_json, "status");
     payload = cJSON_GetObjectItemCaseSensitive(monitor_json, "payload");
-    {
+    
     
     lista = cJSON_GetObjectItemCaseSensitive(payload, "list");
     if (lista != NULL){
@@ -202,7 +211,27 @@ void supports_full_hd(const char * const monitor)
                 printf("x = %d\n", x->valueint); 
                 printf("y = %d\n", y->valueint); 
                 printf("Typ podloza: %s\n", field_type->valuestring); 
+           
+                
             }
+           payload = cJSON_GetObjectItemCaseSensitive(monitor_json, "payload");
+
+
+            m->pole1=cJSON_Print(payload->child->child->child->next->next);
+            m->x1=atoi(cJSON_Print(payload->child->child->child));    
+            m->y1=atoi(cJSON_Print(payload->child->child->child->next));  
+            // printf("%s\n", m->pole1);
+            // printf("%d\n", m->x1); 
+            m->pole2=cJSON_Print(payload->child->child->next->child->next->next);
+            m->x2=atoi(cJSON_Print(payload->child->child->next->child));  
+            m->y2=atoi(cJSON_Print(payload->child->child->next->child->next)); 
+            // printf("%s\n", m->pole2);
+            // printf("%d\n", m->x2);  
+            m->pole3=cJSON_Print(payload->child->child->next->next->child->next->next);
+            m->x3=atoi(cJSON_Print(payload->child->child->next->next->child));     
+            m->y3=atoi(cJSON_Print(payload->child->child->next->next->child->next)); 
+            // printf("%s\n", m->pole3);
+            // printf("%d\n", m->x3);  
     }
     else{    
         
@@ -215,14 +244,15 @@ void supports_full_hd(const char * const monitor)
             printf("y = %d\n", y->valueint); 
             printf("Typ podloza: %s\n", field_type->valuestring); 
             printf("Kierunek: %s\n", direction->valuestring); 
-            goto end;
+           
         
-    }
-    }
+    }  
+       
 
-end:
+
+
     cJSON_Delete(monitor_json);
-  
+    return m;
 }
 
 void supports_full_hdinfo(const char * const monitor)
@@ -275,9 +305,9 @@ end:
 
 int main(int argc, char **argv)
 {
-    mapa m;
-    poczatek(&m);
-    zapiszmape(&m);
+    // mapa m;
+    // poczatek(&m);
+    // zapiszmape(&m);
 
 	char buffer[2048];
 	
