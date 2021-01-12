@@ -4,6 +4,9 @@
 #include <curl/curl.h>
 #include "../cJSON/cJSON.h"
 
+#define size_x 20
+#define size_y 20
+
 typedef struct _Memory
 {
     char *response;
@@ -12,7 +15,7 @@ typedef struct _Memory
 
 typedef struct _mapa {
     int x, y;
-    char tab[20][20];
+    char tab[size_x][size_y];
      char *nazwa;
            char *field;
             char *sesja; 
@@ -35,8 +38,8 @@ void zapiszmape(){
     mapa *m;
  
     m = (mapa*) malloc(sizeof(mapa));
-    for (int i = 0; i < 20; i++){
-        for (int j = 0; j < 20; j++){
+    for (int i = 0; i < size_x; i++){
+        for (int j = 0; j < size_y; j++){
             m->tab[i][j]= 'x';
             fprintf(fout, "%c ", m->tab[i][j]);
         }
@@ -171,8 +174,8 @@ mapa *aktualizuj(mapa*m) {
 
 FILE * fout = fopen("mapka.txt", "r");
 
-    for (int i = 0; i < 20; i++){
-        for (int j = 0; j < 20; j++){
+    for (int i = 0; i < size_x; i++){
+        for (int j = 0; j < size_y; j++){
             fscanf(fout, "%c  ", &m->tab[i][j]);
             
          }
@@ -192,8 +195,8 @@ mapa *aktualizuj_explore(mapa*m) {
 
 FILE * fout = fopen("mapka.txt", "r");
 
-    for (int i = 0; i < 20; i++){
-        for (int j = 0; j < 20; j++){
+    for (int i = 0; i < size_x; i++){
+        for (int j = 0; j < size_y; j++){
             fscanf(fout, "%c  ", &m->tab[i][j]);
             
          }
@@ -233,8 +236,8 @@ FILE * fout = fopen("mapka.txt", "r");
 void zapiszmape2(mapa*m){
     FILE * fout = fopen("mapka.txt", "w+");
    
-    for (int i = 0; i < 20; i++){
-        for (int j = 0; j < 20; j++){
+    for (int i = 0; i < size_x; i++){
+        for (int j = 0; j < size_y; j++){
             
             fprintf(fout, "%c ", m->tab[i][j]);
         }
@@ -247,12 +250,12 @@ void wypisz() {
     FILE * fout = fopen("mapka.txt", "r+");
     mapa *m;
     m = (mapa*) malloc(sizeof(mapa));
-    for (int i = 0; i < 20; i++){
-        for (int j = 0; j < 20; j++){
+    for (int i = 0; i < size_x; i++){
+        for (int j = 0; j < size_y; j++){
             fscanf(fout, "%c  ", &m->tab[i][j]);
-            printf("%c  ", m->tab[i][j]);
+            printf("%c ", m->tab[i][j]);
         }
-        printf("\n");    
+        printf("\n");   
     }
     fclose(fout);
    // free(m);
@@ -411,7 +414,7 @@ end:
 }
 
 void zwolnij(mapa *m){
-    for (int i = 0; i < 20; i++) 
+    for (int i = 0; i < size_x; i++) 
     free( m->tab[i] );
     free(m->tab);
     free(m);
@@ -486,5 +489,6 @@ int main(int argc, char **argv)
     // free(buffer);
     // free(chunk.response);
     // free(test);
+    printf("\n");
     return 0;
 }

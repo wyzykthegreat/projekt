@@ -1,2 +1,2 @@
-{"status": "Success", "payload": {"name": "First world 2", "current_x": 1, "current_y": 1, "current_session": "22ea798c-a488-4523-8f5f-7a35650296c7", "direction": "N", "step": 1, "field_type": "grass", "field_bonus": ""}}
+{"status": "Success", "payload": {"name": "First world 2", "current_x": 4, "current_y": 1, "current_session": "487b21d7-8f7e-4927-a82b-7fc088015608", "direction": "E", "step": 40, "field_type": "grass", "field_bonus": ""}}
 
