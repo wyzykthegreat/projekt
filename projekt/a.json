@@ -1,2 +1,2 @@
-{"status": "Success", "payload": {"list": [{"x": 0, "y": 3, "type": "wall"}, {"x": 0, "y": 4, "type": "wall"}, {"x": 0, "y": 5, "type": "wall"}]}}
+{"status": "Success", "payload": {"name": "First world 2", "current_x": 1, "current_y": 1, "current_session": "88f95dc5-bfb0-490b-9bea-69df090c656d", "direction": "N", "step": 1, "field_type": "grass", "field_bonus": ""}}
 
