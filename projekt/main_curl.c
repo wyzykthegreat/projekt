@@ -402,7 +402,7 @@ void supports_full_hdinfo(const char * const monitor)
             printf("Typ podloza: %s\n", field_type->valuestring); 
             printf("Obecna sesja: %s\n", current_session->valuestring); 
             printf("Kierunek: %s\n", direction->valuestring); 
-            printf("Liczba krokow: %d\n", steps->valueint);
+            printf("Liczba krokow: %d\n", steps->valueint-1);
            
             goto end;     
     }
