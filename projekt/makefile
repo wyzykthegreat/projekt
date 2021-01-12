@@ -7,14 +7,14 @@ main: $(DEPS)
 	cc -c $^ -o $@
 
 move:
-	./main move
+	./main qwerty_2 move
 info:
-	./main info
+	./main qwerty_2 info
 rotate-right:
-	./main right
+	./main qwerty_2 right
 rotate-left:
-	./main left
+	./main qwerty_2 left
 explore:
-	./main explore
+	./main qwerty_2 explore
 reset:
-	./main reset
+	./main qwerty_2 reset

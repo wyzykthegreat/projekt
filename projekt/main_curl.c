@@ -129,43 +129,48 @@ char * make_request(char *url){
 }
 
 void info(char *token) {
-    char *url1 = "http://edi.iem.pw.edu.pl:30000/worlds/api/v1/worlds/info/qwerty_2";
-
+    char url1[100] = "http://edi.iem.pw.edu.pl:30000/worlds/api/v1/worlds/info/";
+    strcat(url1, token);
     make_request(url1);
     //free(url1);
 }
 
 void move(char *token) {
-     char *url1 = "http://edi.iem.pw.edu.pl:30000/worlds/api/v1/worlds/move/qwerty_2";
-
+    char url1[100] = "http://edi.iem.pw.edu.pl:30000/worlds/api/v1/worlds/move/";
+    strcat(url1, token);
     make_request(url1);
     // free(url1);
 }
 
 void explore(char *token) {
-     char *url1 = "http://edi.iem.pw.edu.pl:30000/worlds/api/v1/worlds/explore/qwerty_2";
-
+    char url1[100] = "http://edi.iem.pw.edu.pl:30000/worlds/api/v1/worlds/explore/";
+    strcat(url1, token);
     make_request(url1);
     //free(url1);
 }
 
 void reset(char *token) {
-     char *url1 = "http://edi.iem.pw.edu.pl:30000/worlds/api/v1/worlds/reset/qwerty_2";
-
+    char url1[100] = "http://edi.iem.pw.edu.pl:30000/worlds/api/v1/worlds/reset/";
+    strcat(url1, token);
     make_request(url1);
     //free(url1);
 }
 
 void right(char *token) {
-     char *url1 = "http://edi.iem.pw.edu.pl:30000/worlds/api/v1/worlds/rotate/qwerty_2/right";
+    char url1[100] = "http://edi.iem.pw.edu.pl:30000/worlds/api/v1/worlds/rotate/";
+    char *lol="/right";
+    strcat(url1, token);
+    strcat(url1, lol);
 
     make_request(url1);
    // free(url1);
 }
 
 void left(char *token) {
-     char *url1 = "http://edi.iem.pw.edu.pl:30000/worlds/api/v1/worlds/rotate/qwerty_2/left";
-
+    char url1[100] = "http://edi.iem.pw.edu.pl:30000/worlds/api/v1/worlds/rotate/";
+    char *lol="/left";
+    strcat(url1, token);
+    strcat(url1, lol);
     make_request(url1);
    // free(url1);
 }
@@ -422,6 +427,7 @@ void zwolnij(mapa *m){
 
 int main(int argc, char **argv)
 {   
+    char *test= argv[1];
     mapa *m;
 	char buffer[2048];
 	
@@ -430,11 +436,11 @@ int main(int argc, char **argv)
     chunk.response = NULL;
 
     int i;
-    char *test="qwerty_2";
-    for (i =1; i< argc; i++){
+
+    for (i =2; i< argc; i++){
     if(strcmp(argv[i], "info")==0){
             printf("\nInformacje o swiecie:\n");
-            info(test);
+            info(argv[1]);
             FILE *f = fopen("a.json", "r");
 	        fread(buffer,1,2048,f);
 	        fclose(f);
@@ -442,7 +448,7 @@ int main(int argc, char **argv)
         }
     if(strcmp(argv[i], "move")==0){
             printf("\nWykonuje ruch do przodu.\n");
-            move(test);
+            move(argv[1]);
             FILE *f = fopen("a.json", "r");
             fread(buffer,1,2048,f);
 	        fclose(f);
@@ -454,7 +460,7 @@ int main(int argc, char **argv)
             }
     if(strcmp(argv[i], "explore")==0){
             printf("\nInformacje o trzech blokach przed czolgiem, kolejno od lewej do prawej:\n");
-            explore(test);
+            explore(argv[1]);
             FILE *f = fopen("a.json", "r");
 	        fread(buffer,1,2048,f);
 	        fclose(f);
@@ -465,7 +471,7 @@ int main(int argc, char **argv)
             }
     if(strcmp(argv[i], "right")==0){
             printf("\nObracam w prawo.\n");
-            right(test);
+            right(argv[1]);
             FILE *f = fopen("a.json", "r");
 	        fread(buffer,1,2048,f);
 	        fclose(f);
@@ -473,7 +479,7 @@ int main(int argc, char **argv)
             wypiszstan(m);}
     if(strcmp(argv[i], "left")==0){
             printf("\nObracam w lewo.\n");
-        left(test);
+        left(argv[1]);
             FILE *f = fopen("a.json", "r");
 	        fread(buffer,1,2048,f);
 	        fclose(f);
@@ -481,7 +487,7 @@ int main(int argc, char **argv)
             wypiszstan(m);}
     if(strcmp(argv[i], "reset")==0){
             printf("\nResetuje swiat.\n");
-            reset(test);
+            reset(argv[1]);
             zapiszmape();
         }
     }  
