@@ -6,15 +6,15 @@ main: $(DEPS)
 %.o:%.c
 	cc -c $^ -o $@
 
-test-move:
+move:
 	./main move
-test-info:
+info:
 	./main info
-test-rotate-right:
+rotate-right:
 	./main right
-test-rotate-left:
+rotate-left:
 	./main left
-test-explore:
+explore:
 	./main explore
 reset:
 	./main reset
