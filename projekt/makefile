@@ -1,20 +1,24 @@
-DEPS = main_curl.o
+DEPS = main.o komunikacja.o mapa.o dzejson.o
 
-main: $(DEPS)
+rumba: $(DEPS)
 	cc $(DEPS) -o $@ -lcurl ../cJSON/cjson.o
 
 %.o:%.c
 	cc -c $^ -o $@
 
 move:
-	./main qwerty_2 move
+	./rumba qwerty_2 move
 info:
-	./main qwerty_2 info
-rotate-right:
-	./main qwerty_2 right
-rotate-left:
-	./main qwerty_2 left
+	./rumba qwerty_2 info
+right:
+	./rumba qwerty_2 right
+left:
+	./rumba qwerty_2 left
 explore:
-	./main qwerty_2 explore
+	./rumba qwerty_2 explore
 reset:
-	./main qwerty_2 reset
+	./rumba qwerty_2 reset
+clean:
+	rm -f rumba
+	rm -f *.o
+	rm -f dzejson.json
