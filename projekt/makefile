@@ -1,4 +1,4 @@
-DEPS = main.o komunikacja.o mapa.o
+DEPS = main.o komunikacja.o mapa.o dzejson.o
 
 rumba: $(DEPS)
 	cc $(DEPS) -o $@ -lcurl ../cJSON/cjson.o
@@ -18,3 +18,7 @@ explore:
 	./rumba qwerty_2 explore
 reset:
 	./rumba qwerty_2 reset
+clean:
+	rm -f rumba
+	rm -f *.o
+	rm -f dzejson.json

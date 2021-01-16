@@ -3,6 +3,7 @@
 #include <string.h>
 #include "mapa.h"
 #include "komunikacja.h"
+#include "dzejson.h"
 
 int main(int argc, char **argv)
 {   
@@ -36,7 +37,7 @@ int main(int argc, char **argv)
             aktualizuj_mape(m, argv[i]);
             nadpisz_mape(m);
             wypisz();
-            }
+        }
         if(strcmp(argv[i], "explore")==0){
             printf("\nInformacje o trzech blokach przed czolgiem, kolejno od lewej do prawej:\n");
                 explore(argv[1]);
@@ -47,7 +48,7 @@ int main(int argc, char **argv)
             aktualizuj_mape(m, argv[i]);
             nadpisz_mape(m);
             wypisz();
-            }
+        }
         if(strcmp(argv[i], "right")==0){
             printf("\nObracam w prawo.\n");
                 right(argv[1]);
@@ -55,7 +56,8 @@ int main(int argc, char **argv)
 	            fread(buffer,1,2048,f);
 	        fclose(f);
             m = pobierz_info(buffer);
-            wypiszstan(m);}
+            wypiszstan(m);
+        }
         if(strcmp(argv[i], "left")==0){
             printf("\nObracam w lewo.\n");
                 left(argv[1]);
@@ -63,7 +65,8 @@ int main(int argc, char **argv)
 	            fread(buffer,1,2048,f);
 	        fclose(f);
             m = pobierz_info(buffer);
-            wypiszstan(m);}
+            wypiszstan(m);
+        }
         if(strcmp(argv[i], "reset")==0){
             printf("\nResetuje swiat.\n");
                 reset(argv[1]);

@@ -4,12 +4,6 @@
 #define size_x 30
 #define size_y 30
 
-typedef struct _Memory
-{
-    char *response;
-    size_t size;
-} Memory;
-
 typedef struct _mapa {
     int x, y;
     char tab[size_x][size_y];
@@ -27,7 +21,7 @@ typedef struct _mapa {
 
 void tworzmape();
 
-mapa *tłumacz(mapa *m, char *argument);
+char tlumacz_podloze(char *pole);
 
 mapa *aktualizuj_mape(mapa*m, char *argument);
 
