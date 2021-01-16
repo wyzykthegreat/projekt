@@ -11,4 +11,5 @@ Mozna rowniez skorzystac z komend typu make i wykonywac ruchy dla swiata 'qwerty
 * ###### make right - obraca sie w prawo, 
 * ###### make explore - eksploruje trzy bloki przed czolgiem, 
 * ###### make info - podaje informacje o obecnym polozeniu, 
-* ###### make reset - resetuje swiat.
+* ###### make reset - resetuje swiat,
+* ###### make clean - czysci wykonywalne pliki.
