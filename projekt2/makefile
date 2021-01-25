@@ -24,3 +24,4 @@ clean:
 	rm -f rumba
 	rm -f *.o
 	rm -f dzejson.json
+	rm -f save.txt
