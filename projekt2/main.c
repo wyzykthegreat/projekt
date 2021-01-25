@@ -28,7 +28,7 @@ int main(int argc, char **argv)
             wypisz(robocza);
             zapisz_mape(robocza);
         }
-        if(strcmp(argv[i], "reset")==0){
+        else if(strcmp(argv[i], "reset")==0){
             printf("\nResetuje swiat.\n");
             ruch(argv[1], argv[i]);
             m = otworz_json(argv[i], buffer);
@@ -37,7 +37,7 @@ int main(int argc, char **argv)
             wypisz(robocza);
             zapisz_mape(robocza);
         }
-        if(strcmp(argv[i], "info")==0){
+        else if(strcmp(argv[i], "info")==0){
             printf("\nInformacje o swiecie:\n");
             ruch(argv[1], argv[i]);
             m = otworz_json(argv[i], buffer);
@@ -45,7 +45,7 @@ int main(int argc, char **argv)
             wypisz_info(robocza, m);
             zapisz_mape(robocza);
         }
-        if(strcmp(argv[i], "move")==0){
+        else if(strcmp(argv[i], "move")==0){
             printf("\nWykonuje ruch do przodu.\n");
             ruch(argv[1], argv[i]);
             m = otworz_json(argv[i], buffer);
@@ -61,7 +61,7 @@ int main(int argc, char **argv)
                 }
             zwolnij_dynamiczna(robocza);
         }
-        if(strcmp(argv[i], "explore")==0){
+        else if(strcmp(argv[i], "explore")==0){
             printf("\nInformacje o trzech blokach przed czolgiem, kolejno od lewej do prawej:\n");
             ruch(argv[1], argv[i]);
             m = otworz_json(argv[i], buffer);
@@ -70,13 +70,13 @@ int main(int argc, char **argv)
             zapisz_mape(robocza);
             zwolnij_dynamiczna(robocza);
         }
-        if(strcmp(argv[i], "right")==0){
+        else if(strcmp(argv[i], "right")==0){
             printf("\nObracam w prawo.\n");
             ruch(argv[1], argv[i]);
             m = otworz_json(argv[i], buffer);
             wypiszstan_obrot(m);
         }
-        if(strcmp(argv[i], "left")==0){
+        else if(strcmp(argv[i], "left")==0){
             printf("\nObracam w lewo.\n");
             ruch(argv[1], argv[i]);
             m = otworz_json(argv[i], buffer);

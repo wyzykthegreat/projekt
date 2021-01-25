@@ -87,9 +87,9 @@ dynamiczna *alokuj_mape(int a, int b){
 
     dynamiczna *d = (dynamiczna*) malloc(sizeof(dynamiczna));
 
-    d->elementy = (char**) malloc(sizeof(char*) * a);
+    d->elementy = (char**) malloc(sizeof(char*) * (a+1));
         for(int i = 0; i < a; i++){
-            d->elementy[i] = (char*) malloc(sizeof(char) * b);
+            d->elementy[i] = (char*) malloc(sizeof(char) * (b+1));
             for(int j = 0; j < b; j++){
             d->elementy[i][j]  = 'x';
             }
@@ -158,9 +158,9 @@ dynamiczna *prawo(dynamiczna *stara){
             if(j<stara->a){
                 nowa->elementy[i][j] = stara->elementy[i][j];
             }
-            else{
-                nowa->elementy[i][j] = 'x'; 
-            }
+            // else{
+            //     nowa->elementy[i][j] = 'x'; 
+            // }
         }
     }
 
@@ -189,9 +189,9 @@ dynamiczna *gora(dynamiczna *stara){
             if(i<stara->a){
                 nowa->elementy[i][j] = stara->elementy[i][j];
             }    
-            else{
-                nowa->elementy[i][j] = 'x';
-            }
+            // else{
+            //     nowa->elementy[i][j] = 'x';
+            // }
         }
     }
 
@@ -219,9 +219,9 @@ dynamiczna *dol(dynamiczna *stara){
             if(i>=stara->a){
                 nowa->elementy[i][j] = stara->elementy[i-stara->a][j];
             }
-            else{
-                nowa->elementy[i][j] = 'x'; 
-            }
+            // else{
+            //     nowa->elementy[i][j] = 'x'; 
+            // }
         }
     }
 
@@ -249,9 +249,9 @@ dynamiczna *lewo(dynamiczna *stara){
             if(j>=stara->a){
                 nowa->elementy[i][j] = stara->elementy[i][j- stara->b];
             }
-            else{
-                nowa->elementy[i][j] = 'x'; 
-            }
+            // else{
+            //     nowa->elementy[i][j] = 'x'; 
+            // }
         }
     }
 

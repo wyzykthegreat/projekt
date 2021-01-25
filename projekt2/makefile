@@ -25,3 +25,6 @@ clean:
 	rm -f *.o
 	rm -f dzejson.json
 	rm -f save.txt
+
+test:
+	./rumba qwerty_2 explore move explore move explore move left  explore move explore move explore move explore move explore move explore move right  explore move explore move right  explore move explore move explore move explore move explore move explore move explore left  explore move explore left  explore move explore move left  explore move right  explore move explore move right  explore move explore left  explore move explore move explore move explore left  explore move explore right  explore move explore move explore right  explore move left explore left move explore left  explore move  explore move  explore move explore right  explore move explore move explore right  explore move explore move explore move explore left  explore move explore move explore move left  explore move  explore move explore move explore move explore move explore move explore move explore move explore move explore move
