@@ -30,7 +30,8 @@ int main(int argc, char **argv)
             robocza = tworz_mape_poczatek(m);   //tworzymy mape i przypisujemy elementy do struktury
             wypiszstan_dynamiczna(robocza);     //wypisujemy na ekranie informacje o strukturze
             wypisz(robocza);                    //wypisujemy mape na ekranie
-            zapisz_mape(robocza);               //zapisujemy strukture i mape do pliku
+            zapisz_mape(robocza);
+            zwolnij_dynamiczna(robocza);               //zapisujemy strukture i mape do pliku i zwalniamy
         }
         else if(strcmp(argv[i], "reset")==0){
             printf("\nResetuje swiat.\n");
@@ -39,7 +40,8 @@ int main(int argc, char **argv)
             robocza = tworz_mape_poczatek(m);
             wypiszstan_dynamiczna(robocza);
             wypisz(robocza);
-            zapisz_mape(robocza);           //komenda dziala identycznie jak powyzsza
+            zapisz_mape(robocza);  
+            zwolnij_dynamiczna(robocza);         //komenda dziala identycznie jak powyzsza
         }
         else if(strcmp(argv[i], "info")==0){
             printf("\nInformacje o swiecie:\n");
@@ -47,7 +49,8 @@ int main(int argc, char **argv)
             m = otworz_json(argv[i], buffer);
             robocza = wczytaj();
             wypisz_info(robocza, m);
-            zapisz_mape(robocza);       //komenda jak powyzej
+            zapisz_mape(robocza);   
+            zwolnij_dynamiczna(robocza);    //komenda jak powyzej
         }
         else if(strcmp(argv[i], "move")==0){
             printf("\nWykonuje ruch do przodu.\n");
@@ -91,7 +94,9 @@ int main(int argc, char **argv)
             wypiszstan_obrot(m);            //dwie powyzsze komendy sluza do wyswietlania informacji o kierunku ruchu
         }
         else if(strcmp(argv[i], "bot")==0){
-
+            
+            printf("\nRozpoczynam poznawanie świata.\n");
+            start_bot(argv[1], buffer);
             info = info_bot(argv[1], buffer);   //pobieramy info o obecnym  polozeniu i zapisujemy je do struktury
 
             szukaj_sciany(argv[1], buffer);     //idziemy botem do przodu szukajac sciany

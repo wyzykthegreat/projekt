@@ -19,6 +19,21 @@ dynamiczna *info_bot(char *test, char buffer[2048]){
     return info;                //funkcja pobierajaca info i zwracajaca strukture z informacjami
 }
 
+void start_bot(char* test, char buffer[2048]){
+
+    mapa *m;
+    dynamiczna *robocza = NULL;
+    robocza = (dynamiczna*) calloc(1, sizeof(dynamiczna));
+
+    ruch(test, "start");             
+    m = otworz_json("start", buffer);   
+    robocza = tworz_mape_poczatek(m);  
+    wypiszstan_dynamiczna(robocza);     
+    wypisz(robocza);                   
+    zapisz_mape(robocza);
+    zwolnij_dynamiczna(robocza);
+}
+
 void move_bot(char* test, char buffer[2048]){
     mapa *m;
     dynamiczna *robocza = NULL;
