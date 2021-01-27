@@ -7,6 +7,12 @@
 #define N 5     //poczatkowy rozmiar mapy
 #define P 2     //poczatkowe polozenie x oraz y 
 
+#define ANSI_COLOR_RED     "\x1b[31m"
+#define ANSI_COLOR_GREEN   "\x1b[32m"
+#define ANSI_COLOR_YELLOW  "\x1b[33m"
+#define ANSI_COLOR_RESET   "\x1b[0m"
+#define ANSI_COLOR_CYAN    "\x1b[36m"
+
 typedef struct _mapa {      //struktura do ktorej przekazywane sa dane z serwera
     int x, y;
     char *nazwa, *field, *sesja, *kierunek;
@@ -36,7 +42,6 @@ typedef struct _mapa_dynamiczna{    //struktura mapy
 } dynamiczna;
 
 void zwolnij_dynamiczna(dynamiczna *d);
-
 void wypisz_info(dynamiczna *d, mapa *m);
 
 dynamiczna *wczytaj();

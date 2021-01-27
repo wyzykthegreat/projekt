@@ -47,10 +47,22 @@ void wypisz(dynamiczna*d){      //wypisywanie mapy na ekranie
 
     for (int i = 0; i < d->a; i++){
         for (int j = 0; j < d->b; j++){
-            printf("%d ", d->elementy[d->a-1-i][j]);
+            if(d->elementy[d->a-1-i][j]==1){
+                printf( ANSI_COLOR_GREEN "G ");
+            }
+            else if(d->elementy[d->a-1-i][j]==2){
+                printf(ANSI_COLOR_YELLOW "S ");
+            }
+            else if(d->elementy[d->a-1-i][j]==3){
+                printf(ANSI_COLOR_RED "W ");
+            }
+            else if(d->elementy[d->a-1-i][j]==0){
+                printf(ANSI_COLOR_CYAN "x ");
+            }
         }
         printf("\n");   
     }
+    printf(ANSI_COLOR_RESET);
 }
 
 void wypiszstan_obrot(mapa *m){     //wypisywanie informacji przy komendach obrotu w lewo i prawo
