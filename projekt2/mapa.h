@@ -4,31 +4,31 @@
 #define size_x 30
 #define size_y 30
 
-#define N 5
-#define P 2
+#define N 5     //poczatkowy rozmiar mapy
+#define P 2     //poczatkowe polozenie x oraz y 
 
-typedef struct _mapa {
+typedef struct _mapa {      //struktura do ktorej przekazywane sa dane z serwera
     int x, y;
-    char tab[size_x][size_y];
     char *nazwa, *field, *sesja, *kierunek;
     int steps;
 
     int x1, y1;
     int x2, y2;
-    int x3, y3;
+    int x3, y3;     //polozenia blokow przy komendzie explore
 
     char *pole1;
     char *pole2;
-    char *pole3;
+    char *pole3;    //podloza przy komendzie explore
 
 } mapa;
 
-typedef struct _dynamiczna{
+typedef struct _mapa_dynamiczna{    //struktura mapy 
     char *kierunekd;
-    int a, b;
-    char **elementy;
+    int b;               //wymiar x 
+    int a;               //wymiar y
+    int **elementy;
     int x1, x2, x3;
-    int y1, y2, y3;
+    int y1, y2, y3;      //wymiary x oraz y przy komendzie explore
     int current_x, current_y;
     int delta_x, delta_y;
     char *field;
@@ -41,7 +41,7 @@ void wypisz_info(dynamiczna *d, mapa *m);
 
 dynamiczna *wczytaj();
 
-char tlumacz_podloze(char *pole);
+int tlumacz_podloze(char *pole);
 
 dynamiczna *aktualizuj_mape(char *argument, mapa *m);
 

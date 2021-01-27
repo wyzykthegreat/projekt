@@ -3,7 +3,7 @@
 #include <string.h>
 #include "mapa.h"
 
-dynamiczna *wczytaj(){
+dynamiczna *wczytaj(){  //czytanie mapy i jej elementow z zapisanego pliku
     FILE * fin = fopen("save.txt", "r+");
     dynamiczna *m = (dynamiczna*) malloc(sizeof(dynamiczna));
 
@@ -11,14 +11,14 @@ dynamiczna *wczytaj(){
     fscanf(fin, "%d %d\n", &m->delta_x, &m->delta_y);
     fscanf(fin, "%d %d\n", &m->current_x, &m->current_y);
 
-    m->elementy = (char**) calloc(m->a, sizeof(char*));
+    m->elementy = (int**) calloc(m->a, sizeof(int*));
         for (int i = 0; i < m->a; i++){
-            m->elementy[i] = (char*) calloc(m->b, sizeof(char));
+            m->elementy[i] = (int*) calloc(m->b, sizeof(int));
         }
 
     for (int i = 0; i < m->a; i++){
         for (int j = 0; j < m->b; j++){
-            fscanf(fin, "%c ", &m->elementy[m->a-1-i][j]);
+            fscanf(fin, "%d ", &m->elementy[m->a-1-i][j]);
         }    
     }
 
@@ -26,7 +26,7 @@ dynamiczna *wczytaj(){
     return m;
 }
 
-void zapisz_mape(dynamiczna*m){
+void zapisz_mape(dynamiczna*m){ //zapisywanie struktury mapy oraz jej elementow do pliku
     FILE * fout = fopen("save.txt", "w+");
 
     fprintf(fout, "%d %d\n", m->a, m->b);
@@ -35,7 +35,7 @@ void zapisz_mape(dynamiczna*m){
 
     for (int i = 0; i < m->a; i++){
         for (int j = 0; j < m->b; j++){
-            fprintf(fout, "%c ", m->elementy[m->a-1-i][j]);
+            fprintf(fout, "%d ", m->elementy[m->a-1-i][j]);
         }
         fprintf(fout, "\n");   
     }
@@ -43,29 +43,29 @@ void zapisz_mape(dynamiczna*m){
     fclose(fout);
 }
 
-void wypisz(dynamiczna*d) {
+void wypisz(dynamiczna*d){      //wypisywanie mapy na ekranie
 
     for (int i = 0; i < d->a; i++){
         for (int j = 0; j < d->b; j++){
-            printf("%c ", d->elementy[d->a-1-i][j]);
+            printf("%d ", d->elementy[d->a-1-i][j]);
         }
         printf("\n");   
     }
 }
 
-void wypiszstan_obrot(mapa *m){
+void wypiszstan_obrot(mapa *m){     //wypisywanie informacji przy komendach obrotu w lewo i prawo
     printf("Kierunek: %s\n", m->kierunek); 
     printf("Typ podloza: %s\n", m->field);
     printf("\n");
 }
 
-void wypiszstan_dynamiczna(dynamiczna *m){
+void wypiszstan_dynamiczna(dynamiczna *m){      //wypisywanie obecnego polozenia przy komendach move oraz explore
     printf("x = %d\n", m->current_x); 
     printf("y = %d\n", m->current_y); 
     printf("\n");
 }
 
-void wypisz_info(dynamiczna *d, mapa *m){
+void wypisz_info(dynamiczna *d, mapa *m){   //wypisywanie informacji do komendy info
         printf("Nazwa świata: %s\n", m->nazwa); 
         printf("x = %d\n", m->x - d->delta_x); 
         printf("y = %d\n", m->y - d->delta_y); 
@@ -75,7 +75,7 @@ void wypisz_info(dynamiczna *d, mapa *m){
         printf("Liczba krokow: %d\n", m->steps-2);
 }
 
-dynamiczna *offset(dynamiczna*d, mapa *m){
+dynamiczna *offset(dynamiczna*d, mapa *m){      //ustalanie poczatkowej delty na podstawie jsona zwroconego z serwera
         
     d->delta_x = m->x - P;
     d->delta_y = m->y - P;
@@ -83,23 +83,25 @@ dynamiczna *offset(dynamiczna*d, mapa *m){
     return d;
 }
 
-dynamiczna *alokuj_mape(int a, int b){
+dynamiczna *alokuj_mape(int a, int b){  //alokacja mapy o konkretnych wymiarach 
 
-    dynamiczna *d = (dynamiczna*) malloc(sizeof(dynamiczna));
+    dynamiczna *d = NULL;
+    d= (dynamiczna*) malloc(sizeof(dynamiczna));
 
-    d->elementy = (char**) malloc(sizeof(char*) * (a+1));
+    d->elementy = (int**) calloc(a, sizeof(int*));
         for(int i = 0; i < a; i++){
-            d->elementy[i] = (char*) malloc(sizeof(char) * (b+1));
+            d->elementy[i] = (int*) calloc(b, sizeof(int));
             for(int j = 0; j < b; j++){
-            d->elementy[i][j]  = 'x';
+                d->elementy[i][j]  = 0;
             }
         }
     return d;
 }
 
-dynamiczna *tworz_mape_poczatek(mapa*m){
+dynamiczna *tworz_mape_poczatek(mapa*m){    //tworzenie poczatkowej mapy przy komendach start oraz reset
 
-    dynamiczna *d= alokuj_mape(N, N);
+    dynamiczna *d= NULL;
+    d = alokuj_mape(N, N);
 
     d->a = N; // wartosci y
     d->b = N; //wartosci x
@@ -115,9 +117,10 @@ dynamiczna *tworz_mape_poczatek(mapa*m){
     return d;
 }
 
-dynamiczna *aktualizuj_mape(char *argument, mapa* m) {
+dynamiczna *aktualizuj_mape(char *argument, mapa* m) {      //aktualizacja struktury mapy na podstawie tego co zwrocil json
+                                                            //tlumaczenie podloza oraz przypisywanie kierunku
 
-    dynamiczna *nowa =(dynamiczna*)malloc(sizeof(dynamiczna));
+    dynamiczna *nowa =NULL;
     nowa = wczytaj();
 
     nowa->current_x = m->x - nowa->delta_x;
@@ -144,9 +147,10 @@ dynamiczna *aktualizuj_mape(char *argument, mapa* m) {
     return nowa;
 }
 
-dynamiczna *prawo(dynamiczna *stara){
+dynamiczna *prawo(dynamiczna *stara){   //funkcja do tworzenia struktury mapy przy ruchu w prawo
 
-    dynamiczna *nowa = alokuj_mape(stara->a, 2*stara->b);
+    dynamiczna *nowa = NULL;
+    nowa = alokuj_mape(stara->a, 2*stara->b);
 
     nowa->a = stara->a; //wymiar y
     nowa->b = 2*stara->b; //wymiar x
@@ -176,9 +180,10 @@ dynamiczna *prawo(dynamiczna *stara){
     return nowa;
 }
 
-dynamiczna *gora(dynamiczna *stara){
+dynamiczna *gora(dynamiczna *stara){    //funkcja do tworzenia struktury mapy przy ruchu w gore
 
-    dynamiczna *nowa = alokuj_mape(2*stara->a, stara->b);
+    dynamiczna *nowa = NULL;
+    nowa = alokuj_mape(2*stara->a, stara->b);
 
     nowa->a = 2*stara->a; //wymiar y
     nowa->b = stara->b; //wymiar x
@@ -207,9 +212,11 @@ dynamiczna *gora(dynamiczna *stara){
     return nowa;
 }
 
-dynamiczna *dol(dynamiczna *stara){
+dynamiczna *dol(dynamiczna *stara){     //funkcja do tworzenia struktury mapy przy ruchu w dol
+                                        //aktualizacja obecnego polozenia i przypisywanie nowej delty
 
-    dynamiczna *nowa = alokuj_mape(2*stara->a, stara->b);
+    dynamiczna *nowa = NULL;
+    nowa = alokuj_mape(2*stara->a, stara->b);
     nowa->a = 2*stara->a; //wymiar y
     nowa->b = stara->b; //wymiar x
     int i, j;
@@ -237,13 +244,15 @@ dynamiczna *dol(dynamiczna *stara){
     return nowa;
 }
 
-dynamiczna *lewo(dynamiczna *stara){
+dynamiczna *lewo(dynamiczna *stara){    //funkcja do tworzenia struktury mapy przy ruchu w lewo
+                                        //aktualizacja obecnego polozenia i przypisywanie nowej delty
 
-    dynamiczna *nowa = alokuj_mape(stara->a, 2*stara->b);
+    dynamiczna *nowa = NULL;
+    nowa = alokuj_mape(stara->a, 2*stara->b);
     nowa->a = stara->a; //wymiar y
     nowa->b = 2*stara->b; //wymiar x
     int i, j;
-
+  
     for(int i = 0; i < nowa->a; i++){
         for(int j = 0; j < nowa->b; j++){
             if(j>=stara->a){
@@ -267,30 +276,30 @@ dynamiczna *lewo(dynamiczna *stara){
     return nowa;
 }
 
-char tlumacz_podloze(char *pole) {
-
-    char znak;
+int tlumacz_podloze(char *pole) {   //funkcja do tlumaczenia podloza przy move i explore, przekazujemy to co zwrocil serwer
+                                    // i tlumaczymy na inty wypisane na ekranie i zapisane do pliku
+    int znak;
 
         if(strcmp(pole, "sand")==0){
-            znak = 'S';
+            znak = 2;
         }
         else if(strcmp(pole, "grass")==0){
-            znak = 'G';
+            znak = 1;
         }
         else if(strcmp(pole, "\"wall\"")==0){
-            znak = 'W';
+            znak = 3;
         }
         else if(strcmp(pole, "\"grass\"")==0){
-            znak = 'G';
+            znak = 1;
         }
         else if(strcmp(pole, "\"sand\"")==0){
-            znak = 'S';
+            znak = 2;
         }
 
     return znak;
 }
 
-int check_border(dynamiczna*d){
+int check_border(dynamiczna*d){     //funkcja do sprawdzania czy stoimy na skraju obecnej mapy, jezeli tak - jest zwracana wartosc wieksza od zera
 
     if ((d->current_y == 0) && (d->kierunekd = (char*) 'S')){
         return 1;
@@ -309,10 +318,12 @@ int check_border(dynamiczna*d){
     
 }
 
-void doklej_mape(int border){
+void doklej_mape(int border){   //funkcja do doklejania z odpowiedniej strony nowej mapy
 
-    dynamiczna *wczytana = (dynamiczna*) malloc(sizeof(dynamiczna));
-    dynamiczna *doklejona = (dynamiczna*) malloc(sizeof(dynamiczna));
+    dynamiczna *wczytana = NULL;
+    wczytana = (dynamiczna*) malloc(sizeof(dynamiczna));
+    dynamiczna *doklejona = NULL;
+    doklejona = (dynamiczna*) malloc(sizeof(dynamiczna));
 
     if(border == 1){
         wczytana = wczytaj();
@@ -347,7 +358,7 @@ void doklej_mape(int border){
     zwolnij_dynamiczna(doklejona);
 }
 
-void zwolnij_dynamiczna(dynamiczna*d){
+void zwolnij_dynamiczna(dynamiczna*d){      //zwalnianie elementow w strukturze dynamicznej mapy
 
     for (int i = 0; i < d->a; i++)
         free(d->elementy[i]);

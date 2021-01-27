@@ -1,5 +1,5 @@
-#ifndef _DZEJSON_H
-#define _KOMUNIKACJA_H
+#ifndef _ODPOWIEDZ_H
+#define _ODPOWIEDZ_H
 #include "mapa.h"
 
 

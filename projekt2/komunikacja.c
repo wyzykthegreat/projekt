@@ -34,7 +34,7 @@ static size_t write_callback(void *data, size_t size, size_t nmemb, void *userp)
     return realsize;
 }
 
-void zapisz_dzejsona(char nazwa[], char *wynik){
+void zapisz_dzejsona(char nazwa[], char *wynik){        //zapisywanie pliku z rozszerzeniem .json
     FILE * fout = fopen(nazwa, "w+");
         fprintf(fout, "%s\n", wynik);
     fclose(fout);
@@ -73,7 +73,7 @@ char * make_request(char *url){
             fprintf(stderr, "Błąd! curl_easy_perform() niepowodzenie: %s\n", curl_easy_strerror(res));
         else
         {
-            zapisz_dzejsona("dzejson.json", chunk.response);
+            zapisz_dzejsona("response.json", chunk.response);
         }
 
         /* zawsze po sobie sprzątaj */

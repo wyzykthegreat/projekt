@@ -46,7 +46,7 @@ void left(char *token) {
     make_request(url1);
 }
 
-mapa *pobierz_info(const char * const dzejson)
+mapa *pobierz_info(const char * const dzejson)  //funkcja do pobierania informacji z serwera przy komendach make i do obrotu
 {
     const cJSON *payload = NULL;
     const cJSON *status = NULL;
@@ -84,7 +84,7 @@ mapa *pobierz_info(const char * const dzejson)
     return m;
 }
 
-mapa *pobierz_info_explore(const char * const dzejson)
+mapa *pobierz_info_explore(const char * const dzejson)  //pobieranie info z serwera przy komendzie explore
 {
     const cJSON *element = NULL;
     const cJSON *payload = NULL;
@@ -135,7 +135,7 @@ mapa *pobierz_info_explore(const char * const dzejson)
     return m;
 }
 
-mapa *pobierz_info_info(const char * const dzejson)
+mapa *pobierz_info_info(const char * const dzejson)     //pobieranie info do struktury z serwera przy komendzie info
 {
     const cJSON *payload = NULL;
     const cJSON *status = NULL;
@@ -186,7 +186,7 @@ mapa *pobierz_info_info(const char * const dzejson)
     return m;
 }
 
-void ruch(char *token, char *argument){
+void ruch(char *token, char *argument){     //wykonywanie odpowiedzniej komendy
     if(strcmp(argument, "info")==0)
         info(token);
     if(strcmp(argument, "move")==0)
@@ -203,10 +203,10 @@ void ruch(char *token, char *argument){
         explore(token);
 }
 
-mapa * otworz_json(char *argument, char buffer[2048]){
+mapa * otworz_json(char *argument, char buffer[2048]){      //otwieranie pliku z rozszerzeniem .json
     mapa *m = (mapa*) malloc(sizeof(mapa));
 
-    FILE *f = fopen("dzejson.json", "r");
+    FILE *f = fopen("response.json", "r");
 	fread(buffer,1,2048,f);
 	fclose(f);
            
