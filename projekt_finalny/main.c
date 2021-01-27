@@ -96,20 +96,17 @@ int main(int argc, char **argv)
         else if(strcmp(argv[i], "bot")==0){
             
             printf("\nRozpoczynam poznawanie świata.\n");
-            start_bot(argv[1], buffer);
+            start_bot(argv[1], buffer);         //przywracamy swiat do rozmiarow 5x5 nie resetujac go
             info = info_bot(argv[1], buffer);   //pobieramy info o obecnym  polozeniu i zapisujemy je do struktury
 
             szukaj_sciany(argv[1], buffer);     //idziemy botem do przodu szukajac sciany
-    
-            do{
-                robocza = krecenie(argv[1], buffer, info->current_x, info->current_y);    //rozpoczynamy algorytm obchodzenia planszy 
 
-            }while(info->current_x != robocza->current_x && info->current_y != robocza->current_y);   //dziala on do chwili wrocenia  napoczatkowe polozenie
+            krecenie(argv[1], buffer, info->current_x, info->current_y);    //rozpoczynamy algorytm obchodzenia planszy ktory zawiera odpowiedni warunek konczacy
 
             zwolnij_dynamiczna(robocza);
-            zwolnij_dynamiczna(info);   //zwalniamy obie struktury
-
-            
+            zwolnij_dynamiczna(info);
+            free(test);
+            free(buffer);   //zwalniamy obie struktury, buffera i test  
         }
     }  
     printf("\n");

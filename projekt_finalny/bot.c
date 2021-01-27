@@ -101,10 +101,22 @@ dynamiczna *krecenie(char* test, char buffer[2048], int x, int y){
 
             robocza1 = explore_bot(test, buffer);       //zaczynamy krecenie w lewo i sprawdzamy co przed nami 
 
-            if((robocza1->x2 == x) && (robocza1->y2 == y)){
-                return robocza1;
+            if((robocza1->x2 == x) && (robocza1->y2 == y)){     //patrzymy czy doszedl do punktu wyjscia, jezeli tak robimy 2 ostatnie ruchy i konczymy cala funkcję
+                
+                move_bot(test, buffer);                     
+
+                explore_bot(test, buffer);
+
+                ruch(test, "right");                       
+
+                move_bot(test, buffer); 
+
+                char *emotikona = "😃";
+                printf("Koniec! %s\n", emotikona);
+                
+                return 0;
             }
-            else 
+            else                                    
 
             if(robocza1->elementy[robocza1->y2][robocza1->x2] ==3){
 
@@ -124,16 +136,19 @@ dynamiczna *krecenie(char* test, char buffer[2048], int x, int y){
         }while(robocza->elementy[robocza->y2][robocza->x2] !=1);    //jezaeli nie jest to sciana to wychodzimy z petli
 
         
-        move_bot(test, buffer);
+        move_bot(test, buffer);  //robimy  dwa razy ruch i o brot w prawo i wracamy do poczatku funkcji
+        explore_bot(test, buffer);
 
         ruch(test, "right");
 
         move_bot(test, buffer);
 
-        ruch(test, "right");        //robimy  dwa razy ruch i o brot w prawo i wracamy do poczatku funkcji, warrunek znajduje sie w mainie
+        ruch(test, "right");       
 
         zwolnij_dynamiczna(robocza);
 
-    return robocza1;            //zwracamy odpowiednia strukture potrzebna do warunku konczacego w mainie
+        krecenie(test, buffer, x, y);    
+
+        return robocza1;
 }
 
